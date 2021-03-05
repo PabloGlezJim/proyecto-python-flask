@@ -104,7 +104,6 @@ def get_all_posts():
         admin = int(admin)
         if admin == 1:
             is_admin = True
-    print(is_admin)
     posts = BlogPost.query.all()
     return render_template("index.html", all_posts=posts, logged_in=current_user.is_authenticated, is_admin=is_admin)
 
@@ -141,7 +140,6 @@ def login():
         email = form.email.data
         password = form.password.data
         user_db = User.query.filter_by(email=email).first()
-        print(user_db)
         if user_db:
             user_pass = user_db.password
             if check_password_hash(password=password, pwhash=user_pass):
@@ -191,7 +189,6 @@ def show_post(post_id):
             if admin == 1:
                 is_admin = True
         comments = Comment.query.filter_by(blog_id=post_id).all()
-        print(comments)
         return render_template("post.html", post=requested_post,
                                form=comment_form,
                                logged_in=current_user.is_authenticated, is_admin=is_admin, comments=comments)
